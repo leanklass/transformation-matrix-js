@@ -1,0 +1,23 @@
+{
+  "name": "transformation-matrix-js",
+  "homepage": "https://gitlab.com/epistemex/transformation-matrix-js",
+  "authors": [
+    "epistemex <github@epistemex.com>"
+  ],
+  "description": "2D affine matrix power tools for JavaScript",
+  "main": "matrix.min.js",
+  "keywords": [
+    "matrix",
+    "transformation",
+    "javascript",
+    "canvas"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    ".*",
+    "docsmd",
+    "tests",
+    "tuts"
+  ]
+}

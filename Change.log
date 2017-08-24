@@ -1,0 +1,158 @@
+Change log for 2D Transformation Matrix
+---------------------------------------
+
+2.7.3
+FIX: isIdentity() - removed epsilon as it needs to be exactly identity
+FIX: inverse() - removed internal epsilon as determinant needs to exact 0 to not be invertible
+
+2.7.2
+BUMP: Version bump to replace bower/npm defs moving from GitHub to GitLab.
+
+2.7.1
+FIX: applyToElement() calling the correct method internally (thanks to @hesselblom)
+
+2.7.0
+REM: fromSVGMatrix() and fromDOMMatrix(), which are replaced by from()
+FIX: Typo in fromTriangle() when using x/y objects in array
+ADD: Can now sync a DOM element
+ADD: applyToElement() with automatic browser prefix detection
+ADD: applyToObject() transfers setting of this instance to an external object (typical a matrix instance like Matrix/DOMMatrix/SVGMatrix/empty literal etc.)
+ADD: rotateFromVector() can now also take a vector object with properties x and y
+ADD: from() can take a vector for rotate, translate and/or scale. Support pre-translation.
+
+2.6.5
+ADD: Support for point objects in array for fromTriangles()
+CHG: Matrix.from() can now take DOMMatrix, SVGMatrix and Matrix. Will replace fromSVGMatrix/fromDOMMatrix.
+
+2.6.0
+ADD: fromDOMMatrix() static method
+ADD: toDOMMatrix()
+
+2.5.0
+ADD: Matrix.from(a,b,c,d,e,f)
+
+2.4.0
+ADD: skewDeg() - helper method to take degrees instead of radians
+
+2.3.2
+FIX: lost internal declaration in fromTriangles reinstated
+
+2.3.1
+ADD: toCSV() returns a comma-separated values string incl. line-ending
+CHG: fromSVGAnimList() (2.3.0) changed name to fromSVGTransformList()
+CHG: toString() returns a more readable format incl. option to truncate decimal digits
+FIX: toString() wrongly converted array to type string
+IPR: Minor optimization, corrections in the documentation
+
+2.3.0
+ADD: toSVGMatrix() - creates a SVGMatrix object from current transforms (decomposed)
+ADD: fromSVGMatrix() - static method
+ADD: fromSVGAnimList() - creates a new matrix based on a transform list of an SVG shape
+CHG: Additional parameter for fromTriangles() taking an optional canvas 2D context
+CHG: Additional parameter for inverse() to clone context (if any)
+IPR: minor optimizations
+
+2.2.0
+ADD: Create Matrix based on two triangles (S).
+ADD: Short-hand multiply() method for transform() to take a matrix object (S).
+
+Thanks to https://github.com/solendil (S) for these contributions.
+
+2.1.0
+ADD: toCSS3D() (H)
+ADD: toTypedArray([use64bit])
+
+Thanks to https://github.com/redaxmedia (H) for this contribution.
+
+2.0.2
+IPR: Minor optimizations, node/docs
+
+2.0.1
+ADD: NPM package + Node support
+
+2.0
+ADD: interpolateAnim() suitable for animation and is using decomposition
+for interpolation rather than naive interpolation (which can make rotations
+"flip" etc.).
+
+1.9.3
+ADD: toString(), toCSS(), toJSON(), toArray()
+
+1.9.2
+FIX: Speed improvements, trimmed code to reduce minify size.
+
+1.9.1
+FIX: Change in isValid() left boolean inverted.
+
+1.9
+ADD: scaleU()
+ADD: optional context parameter for interpolate()
+ADD: optional parameter for applyToTypedArray to use 64-bit float array
+CHG: some optimizations, reduced size
+FIX: divideScalar() did not update context if set
+FIX: internal use of isInvertible in inverse() was handled as property
+REM: getInverse() (use inverse() instead)
+
+1.8
+CHG: getInverse() -> inverse(). getInverse() will be removed in the future.
+ADD: rotateFromVector(x, y)
+ADD: decompose(lu|qr) (BETA) (L)
+ADD: determinant()
+ADD: divide(matrix)
+ADD: divideScalar(n)
+ADD: isInvertible()
+ADD: Error check for inverse(), throws error if non-invertible
+
+Thanks to github.com/leeoniya (L) for decompose() implementation
+(with some additional changes)
+
+1.7
+ADD: reflectVector() (BETA: possible special cases, simple impl. for now)
+ADD: concat() current instance onto supplied child matrix and return new
+ADD: isValid() to check the state of the matrix
+ADD: clone() current instance
+IPR: getInverse() now checks if identity first and skips calculations if it is
+
+1.6
+CHG: IMPORTANT! All skew() methods renamed to shear() (L)
+ADD: New skew() takes an angle in radians. (L)
+
+Thanks to github.com/leeoniya (L) for these contributions
+
+1.5
+ADD: new method applyToTypedArray()
+CHG: Code restructured to "minify" better (L)
+FIX: applyToArray() (L)
+
+Thanks to github.com/leeoniya (L) for these contributions
+
+1.4
+ADD: Made non-returning methods chain-able.
+
+1.3
+ADD: New method applyToContext().
+
+1.2
+ADD: Two new helper methods flipX() and flipY()
+ADD: Two new helper methods skewX() and skewY()
+ADD: Two new helper methods scaleX() and scaleY()
+ADD: Two new helper methods translateX() and translateY()
+ADD: Helper method rotateDeg() to rotate by degrees
+ADD: New method isEqual() to compare current matrix with another matrix
+CHG: getInverse() and interpolate() no longer apply parent's context to returned matrix
+CHG: Epsilon tolerance for floating point equal checks
+REM: Previous (partly experimental) added methods for add/subtract removed due to non-linear nature.
+
+1.1
+ADD: New method reset()
+ADD: New method add() (obsoleted)
+ADD: New method addMatrix() (obsoleted)
+ADD: New method subtract() (obsoleted)
+ADD: New method subtractMatrix() (obsoleted)
+CHG: NOTE: Method applyToPoint() takes pair of x/y instead of point object
+CHG: Method applyToArray() can now take two forms of arrays (point objects and point pair values)
+FIX: If context is provided it will now be initialized to identity matrix to enable 100% sync
+FIX: Some documentation errors
+
+1.0
+Initial release

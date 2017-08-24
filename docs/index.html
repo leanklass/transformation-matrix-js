@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>transformation-matrix-js Index</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.lumen.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top ">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">transformation-matrix-js</a>
+		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+        </button>
+	</div>
+	<div class="navbar-collapse collapse" id="topNavigation">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="Matrix.html">Matrix</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="tutorial-Converting to and from SVG matrices.html">Converting to and from SVG matrices</a></li><li><a href="tutorial-Node support.html">Node support</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+		<div class="col-sm-3 col-md-3">
+            <form class="navbar-form" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+	</div>
+
+</div>
+</div>
+
+
+<div class="container" id="toc-content">
+<div class="row">
+
+	
+	<div class="col-md-8">
+	
+		<div id="main">
+			
+
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+
+
+
+
+
+    <section class="readme-section">
+        <article><h1>2D Affine Transformation Matrix</h1><p>An affine transformation matrix (3x3) class for JavaScript that performs various transformations such as rotate, scale, translate, skew, shear, add, subtract, multiply, divide, inverse, decomposing, animation, converting to and from a SVG/DOM matrix, creating matrix from triangles and more (<a href="https://epistemex.gitlab.io/transformation-matrix-js/Matrix.html">full HTML documentation</a> is included).</p>
+<p>It's primarily intended for situations where you need to track or create transforms and want to apply it permanently/manually to your own points and polygons, or when you need cross-browser compatibility.</p>
+<p>The matrix can optionally synchronize a canvas 2D context or a DOM element so that the transformations on the canvas matches pixel perfect the local transformations of the Matrix object.</p>
+<p>For browsers which support DOMMatrix and/or SVGMatrix it can be used as a supplementary framework to increase flexibility such as working directly with transformed points, perform addition transformation, interpolate animation and so forth.</p>
+<p>Targets first and most client side use, but can be used directly in a node.js environment as well.</p>
+<p><em>No dependencies.</em></p>
+<h1>Install</h1><p>Download zip and extract to folder.</p>
+<p>git via HTTPS:</p>
+<pre class="prettyprint source"><code>$ git clone https://gitlab.com/epistemex/transformation-matrix-js.git</code></pre><p>git via SSH:</p>
+<pre class="prettyprint source"><code>$ git clone git@gitlab.com:epistemex/transformation-matrix-js.git</code></pre><p>Using Bower:</p>
+<pre class="prettyprint source"><code>$ bower install transformation-matrix-js</code></pre><p>Using NPM</p>
+<pre class="prettyprint source"><code>$ npm install transformation-matrix-js</code></pre><h1>Usage</h1><h2>Browser</h2><p>Just include the script and create a new instance:</p>
+<pre class="prettyprint source"><code>var matrix = new Matrix([context] [,domElement]);</code></pre><p>You can supply an optional canvas 2D context and/or DOM element as arguments which will be synchronized with the transformations that are applied to the matrix object.</p>
+<h2>Node</h2><p>Using it with Node: use <strong>npm</strong> to install the package first (see above), then</p>
+<pre class="prettyprint source"><code>var Matrix = require(&quot;transformation-matrix-js&quot;).Matrix;
+var m = new Matrix();</code></pre><h2>Quick overview</h2><p><strong>Constructor</strong></p>
+<pre class="prettyprint source"><code>var m = new Matrix( [context] [,element] );</code></pre><p>Can optionally synchronize a canvas 2D context and/or a DOM element.</p>
+<p><strong>Static methods (alternatives to the constructor):</strong></p>
+<pre class="prettyprint source"><code>Matrix.from( a, b, c, d, e, f );        // create a matrix from various sources
+Matrix.from( DOMMatrix );
+Matrix.from( SVGMatrix );
+Matrix.fromTriangles( t1, t2 );           // returns matrix needed to produce t2 from t1
+Matrix.fromSVGTransformList( tList );    // create new matrix from a SVG transform list</code></pre><p><strong>Methods:</strong></p>
+<pre class="prettyprint source"><code>applyToArray(points)
+applyToContext(context)
+applyToElement(element [, use3D])    // auto-detects browser prefix if any
+applyToObject(obj)
+applyToPoint(x, y)
+applyToTypedArray(points [, use64])
+clone(noContext)
+concat(cm)
+decompose([useLU])                   // breaks down the transform into individual components
+determinant()
+divide(m)
+divideScalar(d)
+flipX()
+flipY()
+interpolate(m2, t [, context [, dom]])
+interpolateAnim(m2, t [, context [, dom]]) // decomposed interpolation (prevents flipping)
+inverse([cloneContext][, cloneElement])    // get inverse matrix
+isEqual(m)
+isIdentity()
+isInvertible()
+isValid()
+multiply(m)
+reflectVector(x, y)
+reset()
+rotate(angle)
+rotateDeg(angle)
+rotateFromVector(x, y)
+scale(sx, sy)
+scaleFromVector(x, y)               // uniform scale based on input vector (hypotenuse)
+scaleU(f)                            // uniform scale
+scaleX(sx)
+scaleY(sy)
+setTransform(a, b, c, d, e, f)
+shear(sx, sy)
+shearX(sx)
+shearY(sy)
+skew(ax, ay)
+skewDeg(ax, ay)
+skewX(ax)
+skewY(ay)
+toArray()
+toCSS()
+toCSS3D()
+toCSV()
+toJSON()
+toString()
+toDOMMatrix()                       // creates a DOMMatrix from current transforms
+toSVGMatrix()                        // creates a SVGMatrix from current transforms
+toTypedArray([use64])
+transform(a2, b2, c2, d2, e2, f2)
+translate(tx, ty)
+translateX(tx)
+translateY(ty)</code></pre><p><strong>Properties:</strong></p>
+<pre class="prettyprint source"><code>a                                    // scale x
+b                                    // shear y
+c                                    // shear x
+d                                    // scale y
+e                                    // translate x
+f                                    // translate y</code></pre><h2>Examples</h2><p>Apply to a point:</p>
+<pre class="prettyprint source"><code>tPoint = m.applyToPoint( x, y );</code></pre><p>Apply to an Array with point objects or point pair values:</p>
+<pre class="prettyprint source"><code>tPoints = m.applyToArray( [{x: x1, y: y1}, {x: x2, y: y2}, ...] );
+tPoints = m.applyToArray( [x1, y1, x2, y2, ...] );
+tPoints = m.applyToTypedArray(...);</code></pre><p>or apply to a canvas context (other than optionally referenced in constructor):</p>
+<pre class="prettyprint source"><code>m.applyToContext( myContext );</code></pre><p>Get inverse transformation matrix (the matrix you need to apply to get back to an identity matrix from whatever the matrix contains):</p>
+<pre class="prettyprint source"><code>invMatrix = m.inverse();</code></pre><p>or</p>
+<pre class="prettyprint source"><code>var invMatrix;
+
+if (m.isInvertible()) {             // check if we can inverse
+    invMatrix = m.inverse();
+}</code></pre><p>You can interpolate between current and a new matrix. The function
+returns a new matrix:</p>
+<pre class="prettyprint source"><code>im = m.interpolate( m2, t );           // t = [0.0, 1.0]
+im = m.interpolateAnim( m2, t );</code></pre><p>The former does a naive interpolation which works fine with translate and scale. The latter is better suited when there is rotation involved to avoid &quot;flipping&quot; utilizing decomposition.</p>
+<p>Check if there is any transforms applied:</p>
+<pre class="prettyprint source"><code>state = m.isIdentity();                // true if identity</code></pre><p>Check if two matrices are identical:</p>
+<pre class="prettyprint source"><code>state = m.isEqual( matrix2 );          // true if equal</code></pre><p>Reset matrix to an identity matrix:</p>
+<pre class="prettyprint source"><code>m.reset();</code></pre><p>Methods are chainable:</p>
+<pre class="prettyprint source"><code>// rotate, then translate
+m.rotateDeg(45).translate(100, 200);</code></pre><p>To synchronize a DOM element you can either specify the DOM element in
+the constructor or synchronize manually (auto-detects browser prefix):</p>
+<pre class="prettyprint source"><code>m.applyToElement( domElement );</code></pre><p>See documentation for full overview and usage.</p>
+<h1>Contributors</h1><ul>
+<li>Ken Nilsen (creator) (https://gitlab.com/epistemex)</li>
+<li>Leon Sorokin (https://github.com/leeoniya)</li>
+<li>Henry Ruhs (https://github.com/redaxmedia)</li>
+<li>Matthieu Dumas (https://github.com/solendil)</li>
+<li>Viktor Hesselbom (https://github.com/hesselbom)</li>
+</ul>
+<p>See Change.log for details.</p>
+<h1>License</h1><p>Released under <a href="http://choosealicense.com/licenses/mit/">MIT license</a>. You can use this class in both commercial and non-commercial projects provided that full header (minified and developer versions) is included.</p>
+<p><em>&copy; 2014-2017 Epistemex</em></p>
+<p><img src="http://i.imgur.com/GP6Q3v8.png" alt="Epistemex"></p></article>
+    </section>
+
+
+
+
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+		<div class="col-md-3">
+			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
+		</div>
+	
+
+</div>
+</div>
+
+<div class="modal fade" id="searchResults">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Search results</h4>
+      </div>
+      <div class="modal-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+
+<footer>
+
+	<p><b><a href='https://gitlab.com/epistemex/'>Epistemex at GitLab</a></b></p>
+
+
+	<span class="copyright">
+	Copyright &copy; 2014-2017 Epistemex
+	</span>
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+	
+		on Thu Aug 24th 2017
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/toc.js"></script>
+<script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : false,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			var id = $( heading ).attr( "id" );
+			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		SearcherDisplay.init();
+	});
+</script>
+
+</body>
+</html>

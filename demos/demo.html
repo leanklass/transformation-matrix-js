@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>transformation demo</title>
+	<style>
+		html, body {
+			width:100%;
+			height:100%;
+			margin:0;
+			overflow:hidden;
+			}
+		body {
+			background:#333 url(gfx/noise.png);
+			color:#ddd;
+			}
+		canvas {
+			position:absolute;
+			left:320px;
+			top:0;
+			}
+		#dom {
+			box-sizing:border-box;
+			font:10px sans-serif;
+			width:100px;
+			height:100px;
+			border:1px solid #fff;
+			position:absolute;
+			left:320px;
+			-webkit-transform-origin: 0 0;
+			-moz-transform-origin: 0 0;
+			-ms-transform-origin: 0 0;
+			-o-transform-origin: 0 0;
+			transform-origin: 0 0;
+			}
+		a {color:#fff}
+
+	</style>
+	<link rel="stylesheet" type="text/css" href="css/example.css" />
+</head>
+<body>
+
+<canvas></canvas>
+
+<div class="contDOM"><div id="dom">Outline=DOM</div></div>
+
+<!-- dashboard can be downloaded from: https://github.com/epistemex/dashboard -->
+<script src="dashboard.min.js"></script>
+<script src="../matrix.min.js"></script>
+<script>
+
+	var dom = document.querySelector("#dom");
+	var c = document.querySelector("canvas");
+	var ctx = c.getContext("2d");
+	var dash = new Dashboard({callback: enterTheMatrix});
+
+	dash
+		.add({type: "text", text:"<h2>transformation-matrix-js</h2>", raw:true})
+		.add({type: "separator"})
+
+		.add({id: "stx", type: "slider", label:"Translate X", min: -600, max:window.innerWidth, live:true})
+		.add({id: "sty", type: "slider", label:"Translate Y", min: -600, max:window.innerHeight, live:true})
+		.add({id: "srt", type: "slider", label:"Rotate", min: -180, max:180, value:0, live:true})
+		.add({id: "ssx", type: "slider", label:"Scale X", min: -500, max:500, value:100, live:true})
+		.add({id: "ssy", type: "slider", label:"Scale Y", min: -500, max:500, value:100, live:true})
+		.add({id: "skx", type: "slider", label:"Skew X", min:-89, max:89, value:0, live:true})
+		.add({id: "sky", type: "slider", label:"Skew Y", min:-89, max:89, value:0, live:true})
+		.add({type: "separator"})
+
+		.add({id: "showC", type: "checkbox", label:"Show Canvas", checked: true})
+		.add({id: "showD", type: "checkbox", label:"Show DOM", checked: true})
+		.add({id: "use3D", type: "checkbox", label:"Use toCSS3D()", checked: true})
+		.add({type: "separator"})
+
+		.add({type: "text", text:"<a target='_blank' href='https://github.com/epistemex/transformation-matrix-js'>transformation-matrix-js @ GitHub</a>"})
+		.add({type: "image", url:"data:image/png;base64,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"})
+
+		.init();
+
+	setup();
+	window.onresize = setup;
+
+	function setup() {
+		c.width = window.innerWidth - 320;
+		c.height = window.innerHeight;
+		enterTheMatrix();
+	}
+
+	function enterTheMatrix() {
+
+		//recalc all so we get absolute transform for the sake of demo (would be accumulative otherwise)
+		var m = new Matrix(null, dom)
+			.translate(dash.value("stx"), dash.value("sty"))
+			.rotateDeg(dash.value("srt"))
+			.scale(dash.value("ssx") * 0.01, dash.value("ssy") * 0.01)
+			.skewDeg(dash.value("skx"), dash.value("sky"));
+
+		dom.style.display = dash.value("showD") ? "block" : "none";
+
+		// update canvas
+		ctx.setTransform(1,0,0,1,0,0);
+		ctx.clearRect(0, 0, c.width, c.height);
+
+		if (dash.value("showC")) {
+			m.applyToContext(ctx);
+			ctx.fillStyle = "#248";
+			ctx.fillRect(0, 0, 100, 100);
+			ctx.fillStyle = "#fff";
+			ctx.font = "10px sans-serif";
+			ctx.fillText("Fill=canvas", 1, 30);
+		}
+	}
+
+</script>
+</body>
+</html>

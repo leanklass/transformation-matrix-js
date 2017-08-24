@@ -1,0 +1,110 @@
+/*
+	An example CSS for styling a dashboard panel, mainly to show the
+	internal hierarchy.
+
+	This specific example assumes a single instance with a fixed
+	position. Modify as you wish.
+
+	MIT license
+	(c) 2016 Epistemex
+*/
+
+/*  Main container
+	You can override the class-name as well as using an id.
+	See documentation for details
+	*/
+.dashboard {
+	background: #444;
+	position: fixed;
+	left:0;
+	top:0;
+	width:320px;
+	height:100%;
+	padding:12px;
+	box-sizing:border-box;
+	font:12px sans-serif;
+	color:#fff;
+	}
+
+/* Horizontal ruler style */
+.dashboard > hr {
+	border-top:1px solid #000;
+	border-bottom:none;
+	margin:9px 0;
+	}
+
+/* Line container holding control and label etc. */
+.dashboard > .line {
+	margin-bottom:7px;
+	}
+
+/* Label for this control line */
+.dashboard > .line > label {
+	display:inline-block;
+	width:40%;
+	}
+
+/* Slider style */
+.dashboard > .line > input[type="range"] {
+	width:42%;
+	margin:0 3px;
+	vertical-align:middle;
+	}
+
+/* Style for slider value */
+.dashboard > .line > span {
+	width:12%;
+	text-align: right;
+	display:inline-block;
+	}
+
+/* Checkbox style */
+.dashboard > .line > input[type="checkbox"] {
+	margin:5px 0;
+	vertical-align:middle;
+	}
+
+/* Textbox style */
+.dashboard > .line > input[type="textbox"] {
+	width:57%;
+	margin:3px 0;
+	padding:2px 5px 4px 5px;
+	box-sizing:border-box;
+	border:1px solid #000;
+	border-radius:2px;
+	background:#eee;
+	}
+
+/* Button style */
+.dashboard > .line > button {
+	width:60%;
+	background:#aaa;
+	border:1px solid #000;
+	border-radius:2px;
+	padding:3px 0;
+	}
+
+.dashboard > .line > button:hover {
+	background:#e6c92e;
+	}
+
+/* Dropdown style */
+.dashboard > .line > select {
+	width:60%;
+	padding:2px 0 4px 0;
+	border:1px solid #000;
+	border-radius:2px;
+	background:#ddd;
+	}
+
+/* Text style (note: not when raw=true) */
+.dashboard > .line > p {
+	padding:12px 0;
+	font-size:14px;
+	}
+
+/* Info style */
+.dashboard > .line > i {
+	display:inline-block;
+	padding:5px 0;
+	}
